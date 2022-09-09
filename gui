@@ -170,31 +170,6 @@ game.Players.LocalPlayer.Backpack.ChildAdded:Connect(function(f)
     end
 end)
 
-local function IsDescendantOfPlayer(v,p)
-    for i,v in pairs(game.Workspace:GetDescendants()) do
-        if not v:IsDescendantOf(p) then
-            return false
-        else
-            return true
-        end
-    end
-end
-
-game.Players.PlayerAdded:Connect(function(c)
-    c.CharacterAdded:Connect(function(d)
-        local g = Instance.new("BoolValue", d)
-    end)
-end)
-
-for i,v in pairs(game.Players:GetChildren()) do
-    pcall(function()
-        local g = Instance.new("BoolValue", v.Character)
-    end)
-    v.CharacterAdded:Connect(function(d)
-        local g = Instance.new("BoolValue", d)
-    end)
-end
-    
 
 task.spawn(function()
     while true do
@@ -210,15 +185,17 @@ task.spawn(function()
 end)
 
 
-
-pcall(function()
-    local torso = game.Players.LocalPlayer.Character:WaitForChild('Torso') or game.Players.LocalPlayer.Character:WaitForChild('UpperTorso')
-    torso:GetPropertyChangedSignal('Anchored'):Connect(function(t)
-        if torso.Anchored and AntiAbuse then
-            chat(":thaw")
-        end
+task.spawn(function()
+    pcall(function()
+        local torso = game.Players.LocalPlayer.Character:WaitForChild('Torso') or game.Players.LocalPlayer.Character:WaitForChild('UpperTorso')
+        torso:GetPropertyChangedSignal('Anchored'):Connect(function(t)
+            if torso.Anchored and AntiAbuse then
+                chat(":thaw")
+            end
+        end)
     end)
 end)
+
 
 
 game.Players.LocalPlayer.CharacterAdded:Connect(function()
